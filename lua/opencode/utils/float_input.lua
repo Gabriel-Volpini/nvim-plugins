@@ -51,7 +51,8 @@ end
 ---@param path string
 ---@param visual_text string
 ---@param job_id integer
-local function on_submit(text, path, visual_text, job_id)
+---@param file_type string
+local function on_submit(text, path, visual_text, job_id, file_type)
 	if not text then
 		return ""
 	end
@@ -66,6 +67,14 @@ local function on_submit(text, path, visual_text, job_id)
 		elseif value[3] == patterns["@file"] then
 			new = replace_range(new, value[1], value[2], path)
 		end
+	end
+
+	new = new .. "\n---\n" .. "Contex: "
+
+	if string.lower(file_type) == "lua" then
+		new = new .. "Neovim Lua"
+	else
+		new = new .. file_type
 	end
 
 	local s, e = new:find("@%S+")
@@ -103,6 +112,7 @@ end
 function M.open(opts)
 	local path = "@" .. current_name()
 	local visual_text = get_visual_text() or ""
+	local file_type = vim.bo.filetype
 
 	Snacks.input.input({
 		prompt = opts.prompt,
@@ -121,7 +131,7 @@ function M.open(opts)
 		end
 
 		opts.on_submit()
-		on_submit(text, path, visual_text, opts.job_id)
+		on_submit(text, path, visual_text, opts.job_id, file_type)
 	end)
 end
 

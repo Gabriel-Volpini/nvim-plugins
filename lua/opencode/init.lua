@@ -8,9 +8,9 @@
 ---@field toggle fun()
 local M = {}
 
-local split = require("project.utils.split")
-local opencode = require("project.utils.opencode")
-local float_input = require("project.utils.float_input")
+local split = require("opencode.utils.split")
+local opencode = require("opencode.utils.terminal_job")
+local float_input = require("opencode.utils.float_input")
 
 function M.setup(opts)
 	split.setup(opts.toggleKeyMap)
