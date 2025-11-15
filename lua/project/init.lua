@@ -22,8 +22,7 @@ function M.setup(opts)
 		end,
 	})
 
-	vim.keymap.set({ "n", "v" }, "<leader>ww", function()
-		-- vim.api.nvim_chan_send(job_id, "\x03")
+	vim.api.nvim_create_user_command("AskOpencode", function()
 		float_input.open({
 			prompt = "Ask opencode",
 			job_id = job_id,
@@ -31,7 +30,7 @@ function M.setup(opts)
 				split.show()
 			end,
 		})
-	end)
+	end, {})
 end
 
 return M

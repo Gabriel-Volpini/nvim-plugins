@@ -116,8 +116,12 @@ function M.open(opts)
 
 		highlight = handle_highlight,
 	}, function(text)
-		on_submit(text, path, visual_text, opts.job_id)
+		if not text then
+			return
+		end
+
 		opts.on_submit()
+		on_submit(text, path, visual_text, opts.job_id)
 	end)
 end
 
