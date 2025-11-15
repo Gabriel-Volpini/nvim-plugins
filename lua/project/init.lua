@@ -1,5 +1,5 @@
 ---@alias OpencodeAgents "Lua" | "typescript"
----@alias OpencodeOPTS { ag:OpencodeAgents, toggleKeyMap:string, visualSelectionKeyMap: string }
+---@alias OpencodeOPTS { ag:OpencodeAgents, toggleKeyMap:string }
 
 ---@class OpenCodeSplit
 ---@field visible boolean
@@ -21,6 +21,10 @@ function M.setup(opts)
 			M.setup(opts)
 		end,
 	})
+
+	vim.api.nvim_create_user_command("ToggleOpencode", function()
+		split.toggle()
+	end, {})
 
 	vim.api.nvim_create_user_command("AskOpencode", function()
 		float_input.open({

@@ -52,14 +52,10 @@ local function toggle()
 	M.visible = not M.visible
 end
 
-local function setup_keymaps(toggleKey)
+local function setup_keymaps()
 	-- inside floating split
 	M.split:map("n", "q", toggle)
-	M.split:map("n", toggleKey, toggle)
-	M.split:map("t", toggleKey, toggle)
-
-	-- global toggle
-	vim.keymap.set({ "n", "i", "v" }, toggleKey, toggle, { silent = true })
+	M.split:map("n", "<esc>", toggle)
 
 	-- terminal navigation
 	M.split:map("t", "<esc><esc>", "<C-\\><C-n>")
@@ -75,10 +71,9 @@ local function setup_autocmds()
 	end)
 end
 
----@param toggleKey string
-function M.setup(toggleKey)
+function M.setup()
 	create_split()
-	setup_keymaps(toggleKey)
+	setup_keymaps()
 	setup_autocmds()
 
 	M.bufnr = M.split.bufnr
